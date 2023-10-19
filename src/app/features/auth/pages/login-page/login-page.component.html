@@ -1,0 +1,19 @@
+<div class="background">
+  <div class="login-container">
+    <div class="text-container">
+      <h1>Hello</h1>
+      <p>
+        Want to Convert a blog to pod cast
+      </p>
+      <button mat-button routerLink="/register">Sign up</button>
+    </div>
+    <div class="form-container">
+      <h1>Welcome to Blog To Podcast Login</h1>
+      <button class="mat-raised-button" (click)="loginWithGoogle()">
+        Sign In with Google
+      </button>
+      <h5>Or sign in with your email</h5>
+      <ngbytes-login-form (formData)="login($event)"></ngbytes-login-form>
+    </div>
+  </div>
+</div>
