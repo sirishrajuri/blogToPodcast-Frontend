@@ -1,11 +1,8 @@
 
 .scroll {
   overflow-y: auto;
-  max-height: 600px;
+  max-height: 200px;
 }
-
-
-
 
 h1 {
   color: #5eccd6;

@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HistoryComponent } from './features/history/history.component';
 
 @NgModule({
   declarations: [AppComponent],

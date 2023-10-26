@@ -26,6 +26,14 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
+    path: 'history',
+    loadChildren: () =>
+      import('./features/history/history.module').then(
+        (m) => m.HistoryModule
+      ),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

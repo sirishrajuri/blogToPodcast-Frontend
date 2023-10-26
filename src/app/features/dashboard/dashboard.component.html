@@ -1,78 +1,47 @@
-<!-- <mat-toolbar><a (click)="logout()">Log out</a></mat-toolbar>
-<div class="background" [style.background-image]="'url(assets/mountains.png)'">
-  <h1>Welcome to the Blog to Podcast Dashboard</h1>
-  <br>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" style="font-size: large;">
-    <div class="input-group form-group-no-border input-lg" >
-      <input type="text" formControlName="keywords" class="form-control" placeholder="Start searching by Blog Content or URL" [ngClass]="{ 'is-invalid': submitted && f.keywords.errors }" />
-        <div *ngIf="submitted && f.keywords.errors" class="invalid-feedback">
-            <div *ngIf="f.keywords.errors.required" style="color: black;">Minimum one keyword is required</div>
-        </div>
-    </div>
-    <div class="input-group form-group-no-border input-lg" >
-
-      <input type="text" formControlName="number" class="form-control"  placeholder="Number of Articles required" [ngClass]="{ 'is-invalid': submitted && f.number.errors }" />
-      <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
-          <div *ngIf="f.number.errors.required" style="color: black;">Minimum one article is needed</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Search
-        </button>
-    </div>
-</form>
-</div> -->
-
-
 <div class="ngrok">
   <div class="page-header clear-filter" filter-color="orange">
-    <mat-toolbar><a (click)="logout()">Log out</a></mat-toolbar>
+    <mat-toolbar><a (click)="history()" style="margin-right: 30px;" >History</a> <a (click)="logout()" style="margin-right: 20px;">Log out</a></mat-toolbar>
       <div class="page-header-image rellax-header" data-rellax-speed="-7" style="background-image: url('assets/mountains.png');">
       </div>
       <div class="container">
-          <div class="content-left brand">    
+          <div class="content-center brand">    
             <h1>Welcome! </h1>
             <br>
+            
             <form [formGroup]="form" (ngSubmit)="onSubmit()" style="font-size: large;">
               <div class="input-group form-group-no-border input-lg" >
-                <input type="text" formControlName="keywords" class="form-control" placeholder="Blog Content or URL" [ngClass]="{ 'is-invalid': submitted && f.keywords.errors }" />
-                  <div *ngIf="submitted && f.keywords.errors" class="invalid-feedback">
-                      <div *ngIf="f.keywords.errors.required" style="color: black;">Minimum one keyword is required</div>
-                  </div>
+                <input type="text" style="width: 100%;"  formControlName="keywords" class="form-control" placeholder="Blog Content or URL" [ngClass]="{ 'is-invalid': f.keywords.errors }" />
+                <div *ngIf="f.keywords.errors" class="invalid-feedback">
+                    <div *ngIf="f.keywords.errors.required" style="color: rgb(19, 221, 214);">Minimum one keyword is required</div>
+                </div>
               </div>
+
               <div class="input-group form-group-no-border input-lg" >
-          
-                <input type="text" formControlName="number" class="form-control"  placeholder="Minutes required" [ngClass]="{ 'is-invalid': submitted && f.number.errors }" />
-                <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
-                    <div *ngIf="f.number.errors.required" style="color: black;">Minimum one minute is needed</div>
+                <input type="text"  style="width: 100%;"  formControlName="number" class="form-control" placeholder="Minutes" [ngClass]="{ 'is-invalid': f.number.errors }" />
+                <div *ngIf="f.number.errors" class="invalid-feedback">
+                    <div *ngIf="f.number.errors.pattern" style="color: black;">Only numbers are allowed</div>
                 </div>
               </div>
           
               <div class="form-group">
-                  <button [disabled]="loading" class="btn btn-primary">
-                      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                      Search
-                  </button>
+                <button [disabled]="isSearchDisabled" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Search
+                </button>
               </div>
             </form>
           </div>
-          <div class="content-center">
-            <div class="row" style="color: black;">
-              <div class="col-sm-8">
-                <div class="card">
-                  <div class="card-body scroll">
-                    <p class="card-text">{{contentRendered}}
+        
+          <div class="col-sm-8 ">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text scroll">{{contentRendered}}
 
-                    </p>
-                    <!-- <div *ngIf="!articleAudioGenerated">
-                      <h6> Video generation is in progress</h6>
-                    </div> -->
-                    <!-- <video width="320" height="240" [src]="videoSource | safe:'url'" controls *ngIf="articleAudioGenerated"></video> -->
-                  </div>
-                </div>
+                </p>
+                <!-- <div *ngIf="!articleAudioGenerated">
+                  <h6> Video generation is in progress</h6>
+                </div> -->
+                <audio width="320" height="240" [src]="audioSource | safe:'url'" controls></audio>
               </div>
             </div>
           </div>
