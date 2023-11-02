@@ -1,1 +1,37 @@
-<p>history works!</p>
+<div class="ngrok">
+  <div class="page-header clear-filter" filter-color="orange">
+    <mat-toolbar><a (click)="dashboard()" style="margin-right: 30px;" >Dashboard</a> 
+      <a (click)="logout()" style="margin-right: 20px;">Log out</a></mat-toolbar>
+      <div class="page-header-image rellax-header" data-rellax-speed="-7" style="background-image: url('assets/mountains.png');">
+      </div>
+      <div class="container" style="display: flex; flex-direction: row; justify-content: space-between;">
+          <div class="col-sm-6" style="flex: 0 0 20%;">
+              <ul>
+                  <li *ngFor="let item of responseData | keyvalue">
+                      <button class="btn btn-neutral" (click)="podcastSelected(item.key)">
+                          {{item.key}}
+                      </button> 
+                      <br>
+                  </li>
+              </ul> 
+          </div>
+          <div class="col-sm-6" style="flex: 0 0 80%;margin-right: 20px;">
+              <div class="card">
+                  <div class="card-body">
+                      <p class="card-text">
+                          {{contentRendered}}
+                      </p>
+                      <div *ngIf="!articleAudioGenerated">
+                          <h6> {{contentAudio}}</h6>
+                      </div>
+                      <div *ngIf="!articleVideoGenerated">
+                          <h6> {{contentVideo}}</h6>
+                      </div>
+                      <audio width="320" height="240" [src]="audioSource | safe:'url'" controls *ngIf="articleAudioGenerated"></audio>
+                      <video width="320" height="240" [src]="videoSource | safe:'url'" controls *ngIf="articleVideoGenerated"></video>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

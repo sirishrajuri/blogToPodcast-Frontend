@@ -4,10 +4,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { SafePipe } from 'src/safe.pipe';
 
 @NgModule({
-  declarations: [DashboardComponent,SafePipe],
+  declarations: [DashboardComponent],
   imports: [CommonModule, DashboardRoutingModule, MatToolbarModule,FormsModule,ReactiveFormsModule],
 })
 export class DashboardModule {}

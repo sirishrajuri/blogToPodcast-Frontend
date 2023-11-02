@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URL } from 'src/app/env';
+import { LoginFormComponent } from '../auth/components/login-form/login-form.component';
+import { LoginPageComponent } from '../auth/pages/login-page/login-page.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +39,9 @@ export class DashboardComponent implements OnInit {
   this.loading=false;
   }
 
+
+  
+
   logout() {
     this.authService
       .logout()
@@ -57,7 +62,7 @@ export class DashboardComponent implements OnInit {
     this.submitted=true;
     this.loading=true;
     var formData: any = new FormData();
-    formData.append('username', "testing");
+    formData.append('username', this.authService.getUsername());
     //formData2.append('input_string', 
     //"Allan Dib's 1-Page Marketing Plan is a simplified approach to creating a marketing plan, breaking it down into three main sections: Before, During, and After. Each section contains three sub-categories, resulting in a total of nine key elements. Here's a 1-Page Marketing Plan for your AI blog, adapted from Allan Dib's framework  Before (Prospect)");
     formData.append('input_time', this.form.value.number);
@@ -66,39 +71,28 @@ export class DashboardComponent implements OnInit {
     this.httpClient.post(`${API_URL}/podcast_text_generation`, formData)
               .subscribe((data:any) => {
                 this.loading=false;
-                //this.formatTranscript(data.podcast_text);
-                this.contentRendered=data.podcast_text;
-                console.log(data);
-                this.loading=false;
-                this.generateAudio(data);
+                // //this.formatTranscript(data.podcast_text);
+                // this.contentRendered=data.podcast_text;
+                // console.log(data);
+                // this.loading=false;
+                // this.generateAudio(data);
             });
   }
 
-  generateAudio(data: any) {
-    console.log("Generate Audio Entered");
-    var formDatas: any = new FormData();
-    formDatas.append('podcast_text', data);
-    formDatas.append('username', "testing");
-    this.audioSource = '';
-    this.httpClient.post(`${API_URL}/audio_file_generation`, formDatas,{ responseType: 'blob' })
-    .subscribe((data:any) => {
-        this.audioSource = URL.createObjectURL(data);
-    });
-  }
   formattedTranscript: any[] = [];
 
-  formatTranscript(podcast_text: string) {
-    // Removing intro and outro music from transcript
-    const cleanTranscript = podcast_text.replace(/\[Podcast (Intro|Outro) Music\]/g, '').trim();
+  // formatTranscript(podcast_text: string) {
+  //   // Removing intro and outro music from transcript
+  //   const cleanTranscript = podcast_text.replace(/\[Podcast (Intro|Outro) Music\]/g, '').trim();
 
-    // Splitting by speaker
-    const segments = cleanTranscript.split(/(Sarah:|Allan:)/).filter(Boolean);
+  //   // Splitting by speaker
+  //   const segments = cleanTranscript.split(/(Sarah:|Allan:)/).filter(Boolean);
 
-    for (let i = 0; i < segments.length; i += 2) {
-      this.formattedTranscript.push({
-        speaker: segments[i].trim(),
-        dialogue: segments[i + 1].trim()
-      });
-    }
-  }
+  //   for (let i = 0; i < segments.length; i += 2) {
+  //     this.formattedTranscript.push({
+  //       speaker: segments[i].trim(),
+  //       dialogue: segments[i + 1].trim()
+  //     });
+  //   }
+  // }
 }

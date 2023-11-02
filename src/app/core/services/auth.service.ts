@@ -14,6 +14,20 @@ import { LoginData } from '../interfaces/login-data.interface';
   providedIn: 'root',
 })
 export class AuthService {
+
+  username:String | null ;
+
+  setUsername(username: string) {
+    this.username = username;
+    localStorage.setItem('username', username);
+  }
+  
+  getUsername() {
+    if (!this.username) {
+      this.username = localStorage.getItem('username');
+    }
+    return this.username;
+  }
   constructor(private auth: Auth) {}
 
   login({ email, password }: LoginData) {
